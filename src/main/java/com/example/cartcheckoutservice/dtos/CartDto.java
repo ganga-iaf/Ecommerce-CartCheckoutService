@@ -13,9 +13,11 @@ import java.util.List;
 public class CartDto {
     private long userId;
     private long cartId;
+    private double cartPrice;
     private List<CartItemDto> items;
 
     public static CartDto getCartDto(Cart cart){
+        double cartPrice=0;
         CartDto cartDto=new CartDto();
         cartDto.setCartId(cart.getId());
         cartDto.setUserId(cart.getUserId());
@@ -27,7 +29,9 @@ public class CartDto {
             cartItemDto.setUnitPrice(cartItem.getUnitPrice());
             cartItemDto.setItemId(cartItem.getId());
             cartItems.add(cartItemDto);
+            cartPrice+=cartItem.getUnitPrice()*cartItem.getQuantity();
         }
+        cartDto.setCartPrice(cartPrice);
         cartDto.setItems(cartItems);
         return cartDto;
     }
